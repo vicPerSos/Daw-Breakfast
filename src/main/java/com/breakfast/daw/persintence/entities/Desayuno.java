@@ -1,5 +1,7 @@
 package com.breakfast.daw.persintence.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.Setter;
 public class Desayuno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
     @Column(length = 30)
     private String nombre;
@@ -29,9 +33,13 @@ public class Desayuno {
     private String imagen;
     @Column(columnDefinition = "DECIMAL(3,2)")
     private Double puntuacion;
+
     @ManyToOne
-    @JoinColumn(name = "id_establecimiento", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "establecimiento_Id", referencedColumnName = "id")
     private Establecimiento establecimiento;
+
+    @OneToMany(mappedBy = "desayuno")
+    private List<Review> reviews;
 
     public Desayuno(String nombre, Double precio, String imagen, Double puntuacion) {
         this.nombre = nombre;

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +23,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long userId;
-
-    private long breakfastId;
 
     private Date fecha;
 
@@ -34,5 +33,14 @@ public class Review {
     private int puntuacion;
 
     private String comentario;
+
+    @ManyToOne
+    @JoinColumn(name = "breakfastId", referencedColumnName = "id")
+    private Desayuno desayuno;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private Usuario usuario;
+
 
 }

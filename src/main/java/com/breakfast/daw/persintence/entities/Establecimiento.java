@@ -25,7 +25,8 @@ import jakarta.persistence.GenerationType;
 public class Establecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private int id;
     @Column(length = 30)
     private String nombre;
     @Column(length = 150)
