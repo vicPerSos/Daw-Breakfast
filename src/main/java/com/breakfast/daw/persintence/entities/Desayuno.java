@@ -41,21 +41,5 @@ public class Desayuno {
     @OneToMany(mappedBy = "desayuno")
     private List<Review> reviews;
 
-    public Desayuno(String nombre, Double precio, String imagen, Double puntuacion) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.imagen = imagen;
-        setPuntuacion(puntuacion);
-    }
-
-    public void setPuntuacion(Double puntuacion) {
-        if (puntuacion > 5) {
-            this.puntuacion = 5.0;
-        } else if (puntuacion < 0) {
-            this.puntuacion = 0.0;
-        } else {
-            this.puntuacion = puntuacion;
-        }
-        this.puntuacion = puntuacion;
-    }
+    
 }
