@@ -41,5 +41,12 @@ public class Desayuno {
     @OneToMany(mappedBy = "desayuno")
     private List<Review> reviews;
 
+    public Desayuno(int id, String nombre, Double precio, String imagen, Double puntuacion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.imagen = imagen;
+        this.puntuacion = puntuacion;
+    }
     
 }

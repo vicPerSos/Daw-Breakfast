@@ -23,7 +23,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     private Date fecha;
 
     private Double precio;

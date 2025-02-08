@@ -36,4 +36,12 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     private List<Review> reviews;
+    
+    public Usuario(int id, String userName, String email, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+    
 }
