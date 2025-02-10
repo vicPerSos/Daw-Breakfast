@@ -23,7 +23,7 @@ public class ReviewService {
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
-
+    
     public Optional<Review> getReviewById(int id) {
         return reviewRepository.findById(id);
     }

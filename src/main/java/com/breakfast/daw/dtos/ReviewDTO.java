@@ -1,5 +1,7 @@
 package com.breakfast.daw.dtos;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +10,10 @@ import lombok.Setter;
 public class ReviewDTO {
 	
 	private int id;
+	private int desayunoId;
+	private Date fecha;
     private int puntuacion;
     private String comentario;
-    private int desayunoId;
     private int usuarioId;
 
     public ReviewDTO(int id, int puntuacion, String comentario, int desayunoId, int usuarioId) {

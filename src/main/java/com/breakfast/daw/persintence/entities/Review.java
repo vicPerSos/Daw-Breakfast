@@ -21,9 +21,7 @@ import lombok.Setter;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int usuarioId;
-    
-    private int desayunoId;
+    private int id;
 
     private Date fecha;
 
@@ -34,7 +32,6 @@ public class Review {
     private int puntuacion;
 
     private String comentario;
-    
     
     @ManyToOne
     @JoinColumn(name = "breakfastId", referencedColumnName = "id")
