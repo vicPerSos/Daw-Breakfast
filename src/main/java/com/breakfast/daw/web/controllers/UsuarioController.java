@@ -61,6 +61,8 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    
+    /*
     @PutMapping("/{id},{newPassword}")
     public ResponseEntity<Usuario> changePassword(@PathVariable int id, @PathVariable String newPassword) {
         if (this.usuarioService.usuarioIsPresent(id)) {
@@ -68,5 +70,8 @@ public class UsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
+*/
+
+
 
 }

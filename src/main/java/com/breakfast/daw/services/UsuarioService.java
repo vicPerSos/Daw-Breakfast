@@ -40,8 +40,11 @@ public class UsuarioService {
         return this.usuarioRepository.existsById(id);
     }
 
+    
+    
+    /*
     public Usuario actualizarContrasenna(int id, String contrasenna) {
         return this.usuarioRepository.updatePasswordById(id, contrasenna);
     }
-
+*/
 }

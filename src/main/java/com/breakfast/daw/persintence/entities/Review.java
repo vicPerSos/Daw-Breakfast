@@ -32,7 +32,8 @@ public class Review {
     private int puntuacion;
 
     private String comentario;
-
+    
+    
     @ManyToOne
     @JoinColumn(name = "breakfastId", referencedColumnName = "id")
     private Desayuno desayuno;
@@ -40,6 +41,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private Usuario usuario;
+
 
 
 }
