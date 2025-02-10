@@ -8,4 +8,4 @@ INSERT INTO establecimiento (nombre, descripcion, ubicacion, puntuacion) VALUES 
 
 -- Inserts para la tabla desayuno
 INSERT INTO desayuno (nombre, precio, imagen, puntuacion, establecimiento_Id) VALUES ('Café con leche', 1.50, 'cafe_con_leche.jpg', 4.8, 1);
-INSERT INTO desayuno (nombre, precio, imagen, puntuacion, establecimiento_Id) VALUES ('Croissant', 2.00, 'croissant.jpg', 4.6, 2);
+INSERT INTO desayuno (nombre, precio, imagen, puntuacion, establecimiento_Id) VALUES ('Croissant', 2.00, 'croissant.jpg', 4.6, 2
