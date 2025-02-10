@@ -22,6 +22,7 @@ public class EstablecimientoService {
         return establecimientoRepository.findById(id);
     }
 //hola
+    //hd gwsgy
     public Establecimiento createEstablecimiento(Establecimiento establecimiento) {
         return this.establecimientoRepository.save(establecimiento);
     }
