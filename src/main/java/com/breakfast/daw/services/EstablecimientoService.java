@@ -21,7 +21,7 @@ public class EstablecimientoService {
     public Optional<Establecimiento> getEstablecimientoById(int id) {
         return establecimientoRepository.findById(id);
     }
-
+//hola
     public Establecimiento createEstablecimiento(Establecimiento establecimiento) {
         return this.establecimientoRepository.save(establecimiento);
     }
