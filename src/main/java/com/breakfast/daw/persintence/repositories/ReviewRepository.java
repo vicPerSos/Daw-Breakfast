@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findByUsuario(Usuario usuario);
     List<Review> findByDesayuno(Desayuno desayuno);
     List<Review> findAllByOrderByPuntuacionDesc();

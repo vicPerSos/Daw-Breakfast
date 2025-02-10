@@ -4,6 +4,7 @@ import com.breakfast.daw.persintence.entities.Review;
 import com.breakfast.daw.persintence.entities.Desayuno;
 import com.breakfast.daw.persintence.entities.Usuario;
 import com.breakfast.daw.persintence.repositories.ReviewRepository;
+import com.breakfast.daw.persintence.repositories.UsuarioRepository;
 import com.breakfast.daw.persintence.repositories.DesayunoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,13 @@ import java.util.Optional;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final DesayunoRepository desayunoRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
 
-    public Optional<Review> getReviewById(long id) {
+    public Optional<Review> getReviewById(int id) {
         return reviewRepository.findById(id);
     }
 
@@ -31,7 +33,9 @@ public class ReviewService {
     }
 
     public List<Review> getReviewsByUsuario(int usuarioId) {
-        return reviewRepository.findByUsuario(new Usuario(usuarioId, null, null, null));
+    	
+    	Usuario usuario = this.usuarioRepository.findById(usuarioId).get();
+        return reviewRepository.findByUsuario(usuario);
     }
 
     @Transactional
@@ -42,7 +46,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public Review updateReview(long id, Review review) {
+    public Review updateReview(int id, Review review) {
         Review existingReview = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review no encontrada"));
         existingReview.setPuntuacion(review.getPuntuacion());
@@ -53,7 +57,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(long id) {
+    public void deleteReview(int id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review no encontrada"));
         reviewRepository.delete(review);
