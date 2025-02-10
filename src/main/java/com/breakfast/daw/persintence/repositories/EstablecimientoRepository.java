@@ -7,5 +7,4 @@ import com.breakfast.daw.persintence.entities.Establecimiento;
 
 @Repository
 public interface EstablecimientoRepository extends JpaRepository<Establecimiento, Integer> {
-
 }

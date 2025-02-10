@@ -17,10 +17,12 @@ public class EstablecimientoService {
     public List<Establecimiento> getAllEstablecimientos() {
         return this.establecimientoRepository.findAll();
     }
-    
 
     public Optional<Establecimiento> getEstablecimientoById(int id) {
         return establecimientoRepository.findById(id);
     }
 
+    public Establecimiento createEstablecimiento(Establecimiento establecimiento) {
+        return this.establecimientoRepository.save(establecimiento);
+    }
 }
