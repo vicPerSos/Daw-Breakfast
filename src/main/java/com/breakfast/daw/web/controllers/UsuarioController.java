@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.breakfast.daw.persintence.entities.Usuario;
@@ -41,7 +42,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
     }
 
-    @PutMapping({"/{id}"})
+    @PutMapping({ "/{id}" })
     public ResponseEntity<Usuario> updateUsuario(@PathVariable int id, @RequestBody Usuario usuario) {
         if (usuario.getId() != id) {
             return ResponseEntity.badRequest().build();
@@ -53,25 +54,27 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping({ "/{id}" })
     public ResponseEntity<Usuario> deleteUsuario(@PathVariable int id) {
-        if(this.usuarioService.usuarioIsPresent(id)){
+        if (this.usuarioService.usuarioIsPresent(id)) {
             return ResponseEntity.ok(this.usuarioService.deleteUsuario(id));
         }
         return ResponseEntity.notFound().build();
     }
 
-    
-    /*
-    @PutMapping("/{id},{newPassword}")
-    public ResponseEntity<Usuario> changePassword(@PathVariable int id, @PathVariable String newPassword) {
-        if (this.usuarioService.usuarioIsPresent(id)) {
-            return ResponseEntity.ok(usuarioService.actualizarContrasenna(id, newPassword));
+    @PutMapping("/changepassword/{id}")
+    public ResponseEntity<Usuario> changePassword(@PathVariable int id, @RequestParam String password) {
+        Usuario usuario = this.usuarioService.getUsuarioById(id).get();
+        String oldPassword = usuario.getPassword();
+        if (password.equals(oldPassword)) {
+            return ResponseEntity.badRequest().build();
         }
+        if (!this.usuarioService.usuarioIsPresent(id)) {
         return ResponseEntity.notFound().build();
+        }
+        usuario.setPassword(password);
+        return ResponseEntity.ok(usuarioService.updateUsuario(usuario));
+
     }
-*/
-
-
 
 }

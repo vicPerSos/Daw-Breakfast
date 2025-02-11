@@ -11,10 +11,4 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    
-    @Modifying
-    @Transactional
-    @Query("UPDATE Usuario u SET u.password = :password WHERE u.id = :id")
-    Usuario updatePasswordById(int id, String Password);
-
 }

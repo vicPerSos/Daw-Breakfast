@@ -31,7 +31,7 @@ public class UsuarioService {
     }
 
     public Usuario deleteUsuario(int id) {
-        Usuario usuario = this.usuarioRepository.findById(id).get();    
+        Usuario usuario = this.usuarioRepository.findById(id).get();
         this.usuarioRepository.deleteById(id);
         return usuario;
     }
@@ -40,11 +40,4 @@ public class UsuarioService {
         return this.usuarioRepository.existsById(id);
     }
 
-    
-    
-    /*
-    public Usuario actualizarContrasenna(int id, String contrasenna) {
-        return this.usuarioRepository.updatePasswordById(id, contrasenna);
-    }
-*/
 }
