@@ -42,7 +42,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
     }
 
-    @PutMapping({ "/{id}" })
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable int id, @RequestBody Usuario usuario) {
         if (usuario.getId() != id) {
             return ResponseEntity.badRequest().build();
@@ -54,7 +54,7 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping({ "/{id}" })
+    @DeleteMapping("/{id}")
     public ResponseEntity<Usuario> deleteUsuario(@PathVariable int id) {
         if (this.usuarioService.usuarioIsPresent(id)) {
             return ResponseEntity.ok(this.usuarioService.deleteUsuario(id));
@@ -70,7 +70,7 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         }
         if (!this.usuarioService.usuarioIsPresent(id)) {
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
         usuario.setPassword(password);
         return ResponseEntity.ok(usuarioService.updateUsuario(usuario));
