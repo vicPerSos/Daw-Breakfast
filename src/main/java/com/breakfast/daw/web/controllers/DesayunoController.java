@@ -1,8 +1,6 @@
 package com.breakfast.daw.web.controllers;
 
-
 import java.util.List;
-import java.util.Optional;  // <- Importación correcta
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +29,11 @@ public class DesayunoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Desayuno> getDesayunoById(@PathVariable int id) {
-        Optional<Desayuno> desayuno = this.desayunoService.getDesayunoById(id);
-        if (desayuno.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (this.desayunoService.desayunoIsPresent(id)) {
+            return ResponseEntity.ok(this.desayunoService.getDesayunoById(id).get());
         }
-        return ResponseEntity.ok(desayuno.get());
+        return ResponseEntity.notFound().build();
     }
-
-
 
     @PostMapping
     public ResponseEntity<Desayuno> createDesayuno(@RequestBody Desayuno desayuno) {
@@ -59,13 +54,10 @@ public class DesayunoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Desayuno> deleteDesayuno(@PathVariable int id) {
-        Optional<Desayuno> desayuno = this.desayunoService.getDesayunoById(id);
-        if (desayuno.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (this.desayunoService.desayunoIsPresent(id)) {
+            return ResponseEntity.ok(desayunoService.deleteDesayuno(id));
         }
-        return ResponseEntity.ok(this.desayunoService.deleteDesayuno(id));
+        return ResponseEntity.notFound().build();
     }
-
-
 
 }
