@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.breakfast.daw.persintence.entities.Establecimiento;
-import com.breakfast.daw.persintence.entities.Usuario;
 import com.breakfast.daw.persintence.repositories.EstablecimientoRepository;
 
 @Service
@@ -36,13 +35,17 @@ public class EstablecimientoService {
 		}
 	
 	 public Establecimiento deleteEstablecimiento(int id) {
-	        Establecimiento establecimeinto = this.establecimientoRepository.findById(id).get();
+	        Establecimiento establecimiento = this.establecimientoRepository.findById(id).get();
 	        this.establecimientoRepository.deleteById(id);
-	        return establecimeinto;
+	        return establecimiento;
 	    }
 	 
+	//ENDPOINT PARA OBTENER LOS ESTABLECIMIENTOS ORDENADOS POR PUNTUACION (DESC) 
+	
+	 public List<Establecimiento> getPuntuacionDesc() {
+	        return establecimientoRepository.findByPuntuacionDesc();
+	    }
 	 
-	
-	
+	 //por que me sale la clase como que me da error si en teoria no me da
 	
 }

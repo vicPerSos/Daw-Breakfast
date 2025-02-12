@@ -67,7 +67,10 @@ public class EstablecimientoController {
         return ResponseEntity.notFound().build();
     }
     
-    
-    
+    @GetMapping("/puntuacion")
+    public ResponseEntity<List<Establecimiento>> puntuacion() {
+        List<Establecimiento> establecimiento = establecimientoService.getPuntuacionDesc();
+        return ResponseEntity.ok(establecimiento);
+    }
     
 }
