@@ -30,9 +30,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Usuario>> getUsuariosByCliente(@PathVariable int id) {
+    public ResponseEntity<Usuario> getUsuariosByCliente(@PathVariable int id) {
         if (this.usuarioService.usuarioIsPresent(id)) {
-            return ResponseEntity.ok(usuarioService.getUsuarioById(id));
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id).get());
         }
         return ResponseEntity.notFound().build();
     }
