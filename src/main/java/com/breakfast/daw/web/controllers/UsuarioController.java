@@ -21,18 +21,19 @@ import com.breakfast.daw.services.UsuarioService;
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
+	
     @Autowired
     private UsuarioService usuarioService;
-
+    
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsuarios() {
         return ResponseEntity.ok(usuarioService.getAllUsuarios());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUsuariosByCliente(@PathVariable int id) {
+    public ResponseEntity<Optional<Usuario>> getUsuariosByCliente(@PathVariable int id) {
         if (this.usuarioService.usuarioIsPresent(id)) {
-            return ResponseEntity.ok(usuarioService.getUsuarioById(id).get());
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id));
         }
         return ResponseEntity.notFound().build();
     }

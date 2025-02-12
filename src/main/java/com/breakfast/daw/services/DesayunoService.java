@@ -1,15 +1,16 @@
 package com.breakfast.daw.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.breakfast.daw.persintence.entities.Desayuno;
 import com.breakfast.daw.persintence.entities.Establecimiento;
 import com.breakfast.daw.persintence.repositories.DesayunoRepository;
 
+@Service
 public class DesayunoService {
     @Autowired
     private DesayunoRepository desayunoRepository;

@@ -46,6 +46,5 @@ public class EstablecimientoService {
 	        return establecimientoRepository.findByPuntuacionDesc();
 	    }
 	 
-	 //por que me sale la clase como que me da error si en teoria no me da
 	
 }
