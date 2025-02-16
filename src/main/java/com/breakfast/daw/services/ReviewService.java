@@ -23,23 +23,27 @@ public class ReviewService {
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
-   
+
     public Optional<Review> getReviewById(int id) {
         return reviewRepository.findById(id);
     }
 
-    public List<Review> getReviewsByDesayuno(int desayunoId) {
-        return reviewRepository.findByDesayuno(new Desayuno(desayunoId, null, 0.0, null, 0.0));
+    public List<Review> getReviewsByDesayuno(int id) {
+        Desayuno desayuno = this.desayunoRepository.findById(id).get();
+        return reviewRepository.findByDesayuno(desayuno);
     }
 
     public List<Review> getReviewsByUsuario(int usuarioId) {
-    	
-    	Usuario usuario = this.usuarioRepository.findById(usuarioId).get();
+
+        Usuario usuario = this.usuarioRepository.findById(usuarioId).get();
         return reviewRepository.findByUsuario(usuario);
     }
 
     @Transactional
     public Review createReview(Review review) {
+        if(review.getPuntuacion()>5||review.getPuntuacion()<1){
+            throw new RuntimeException("La puntuación debe estar entre 1 y 5");
+        }
         Review savedReview = reviewRepository.save(review);
         actualizarPuntuacionDesayuno(review.getDesayuno());
         return savedReview;

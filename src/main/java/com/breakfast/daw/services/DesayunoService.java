@@ -27,6 +27,10 @@ public class DesayunoService {
     }
 
     public Desayuno createDesayuno(Desayuno desayuno) {
+        if(desayuno.getImagen().equals("")|| desayuno.getImagen().isEmpty()){
+            desayuno.setImagen("https://i.pinimg.com/736x/6d/7a/43/6d7a43e03c4a75a218a47bb6fd5bfcd0.jpg");
+        }
+
         return desayunoRepository.save(desayuno);
     }
 

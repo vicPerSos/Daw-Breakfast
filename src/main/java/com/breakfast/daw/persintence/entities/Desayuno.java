@@ -2,6 +2,8 @@ package com.breakfast.daw.persintence.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,15 +40,10 @@ public class Desayuno {
     @JoinColumn(name = "establecimiento_Id", referencedColumnName = "id")
     private Establecimiento establecimiento;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "desayuno")
     private List<Review> reviews;
 
-    public Desayuno(int id, String nombre, Double precio, String imagen, Double puntuacion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.imagen = imagen;
-        this.puntuacion = puntuacion;
-    }
+    
     
 }

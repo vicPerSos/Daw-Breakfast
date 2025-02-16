@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/reviews")
+@RequestMapping("/reviews")
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;

@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,7 @@ public class Usuario {
     @Column(length = 50)
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Review> reviews;
     
