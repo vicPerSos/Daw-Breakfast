@@ -59,6 +59,11 @@ public class DesayunoService {
         return this.desayunoRepository.findByEstablecimiento(establecimiento);
     }
 
+    public Desayuno cambiarImagen(Desayuno desayuno, String imagen) {
+        desayuno.setImagen(imagen);
+        return this.desayunoRepository.save(desayuno);
+    }
+
     public boolean desayunoIsPresent(int id) {
         return this.desayunoRepository.existsById(id);
     }

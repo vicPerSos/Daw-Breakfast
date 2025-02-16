@@ -11,16 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.breakfast.daw.persintence.entities.Desayuno;
 import com.breakfast.daw.services.DesayunoService;
+import com.breakfast.daw.services.EstablecimientoService;
 
 @RestController
 @RequestMapping("/desayunos")
 public class DesayunoController {
     @Autowired
     private DesayunoService desayunoService;
+
+    @Autowired
+    private EstablecimientoService establecimientoService;
 
     @GetMapping
     public ResponseEntity<List<Desayuno>> getDesayunos() {
@@ -58,6 +63,46 @@ public class DesayunoController {
             return ResponseEntity.ok(desayunoService.deleteDesayuno(id));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/ordenPuntDesc")
+    public ResponseEntity<List<Desayuno>> getDesayunosOrdenDesc() {
+        return ResponseEntity.ok(desayunoService.getDesayunosOrderByPuntuacionDesc());
+    }
+
+    @GetMapping("/establecimiento/{id}")
+    public ResponseEntity<List<Desayuno>> getDesayunosByEstablecimiento(@PathVariable int id) {
+        if (!this.establecimientoService.establecimientoIsPresent(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(this.desayunoService.getDesayunosByEstablecimiento(id));
+    }
+
+    @GetMapping("/establecimiento/puntuacion/{id}")
+    public ResponseEntity<List<Desayuno>> getDesayunosByEstablecimientoPuntuacion(@PathVariable int id) {
+        if (!this.establecimientoService.establecimientoIsPresent(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(this.desayunoService.getDesayunosByEstablecimetosOrderByPuntuacionDesc(id));
+    }
+    @GetMapping("/establecimiento/precio/{id}")
+    public ResponseEntity<List<Desayuno>> getDesayunosByEstablecimetosOrderByPrecio(@PathVariable int id) {
+        if (!this.establecimientoService.establecimientoIsPresent(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(this.desayunoService.getDesayunosByEstablecimetosOrderByPrecioAsc(id));
+    }
+
+    @PutMapping("/imagen/{id}/{imagen}")
+    public ResponseEntity<Desayuno> updateImagenDesayuno(@PathVariable int id, @PathVariable String imagen) {
+        if (!this.desayunoService.desayunoIsPresent(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Desayuno desayuno = this.desayunoService.getDesayunoById(id).get();
+        if (desayuno.getImagen().equals(imagen)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(this.desayunoService.cambiarImagen(desayuno, imagen));
     }
 
 }
