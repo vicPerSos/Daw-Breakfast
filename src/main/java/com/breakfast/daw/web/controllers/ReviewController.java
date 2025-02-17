@@ -2,10 +2,15 @@ package com.breakfast.daw.web.controllers;
 
 import com.breakfast.daw.persintence.entities.Review;
 import com.breakfast.daw.services.ReviewService;
+import com.breakfast.daw.services.dto.ReviewDTO;
+import com.breakfast.daw.services.mapper.ReviewMapper;
+import com.breakfast.daw.services.mapper.UsuarioMapper;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,41 +21,60 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public List<Review> getAllReviews() {
-        return reviewService.getAllReviews();
+    public ResponseEntity<List<ReviewDTO>> getAllReviews() {
+        List<Review> reviews = reviewService.getAllReviews();
+        List<ReviewDTO> reviewsDTO = new ArrayList<ReviewDTO>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+
+        return ResponseEntity.ok(reviewsDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Review> getReviewById(@PathVariable int id) {
+    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable int id) {
         Optional<Review> review = reviewService.getReviewById(id);
-        return review.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (review.isPresent()) {
+            return ResponseEntity.ok(ReviewMapper.toDTO(review.get()));
+        }
+        return ResponseEntity.notFound().build();
+
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public List<Review> getReviewsByUsuario(@PathVariable int usuarioId) {
-        return reviewService.getReviewsByUsuario(usuarioId);
+    public ResponseEntity<List<ReviewDTO>> getReviewsByUsuario(@PathVariable int usuarioId) {
+        List<Review> reviews = reviewService.getReviewsByUsuario(usuarioId);
+        List<ReviewDTO> reviewsDTO = new ArrayList<ReviewDTO>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+        return ResponseEntity.ok(reviewsDTO);
     }
 
     @GetMapping("/desayuno/{desayunoId}")
-    public List<Review> getReviewsByDesayuno(@PathVariable int desayunoId) {
-        return reviewService.getReviewsByDesayuno(desayunoId);
+    public ResponseEntity<List<ReviewDTO>> getReviewsByDesayuno(@PathVariable int desayunoId) {
+        List<Review> reviews = reviewService.getReviewsByDesayuno(desayunoId);
+        List<ReviewDTO> reviewsDTO = new ArrayList<ReviewDTO>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+        return ResponseEntity.ok(reviewsDTO);
     }
 
     @PostMapping
-    public Review createReview(@RequestBody Review review) {
-        return reviewService.createReview(review);
+    public ResponseEntity<ReviewDTO> createReview(@RequestBody Review review) {
+        return ResponseEntity.ok(ReviewMapper.toDTO(reviewService.createReview(review)));
     }
 
     @PutMapping("/{id}")
-    public Review updateReview(@PathVariable int id, @RequestBody Review review) {
-        return reviewService.updateReview(id, review);
+    public ResponseEntity<ReviewDTO> updateReview(@PathVariable int id, @RequestBody Review review) {
+        return ResponseEntity.ok(ReviewMapper.toDTO(reviewService.updateReview(id, review)));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable int id) {
-        reviewService.deleteReview(id);
-        return ResponseEntity.noContent().build();
-    }
+   /*  @DeleteMapping("/{id}")
+    public boolean deleteReview(@PathVariable int id) {
+        return ResponseEntity.ok(this.reviewService.deleteReview(id));
+    }*/
 
     @GetMapping("/ordenadas/fecha/asc")
     public List<Review> getReviewsOrderedByDateAsc() {

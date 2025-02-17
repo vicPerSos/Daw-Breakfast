@@ -61,11 +61,15 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(int id) {
-        Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Review no encontrada"));
-        reviewRepository.delete(review);
-        actualizarPuntuacionDesayuno(review.getDesayuno());
+    public boolean deleteReview(int id) {
+       boolean result = false;
+       if(this.reviewRepository.existsById(id)){
+        this.reviewRepository.deleteById(id);
+        result = true;
+       }
+
+       return result;
+
     }
 
     public List<Review> getReviewsOrderedByDateAsc() {
