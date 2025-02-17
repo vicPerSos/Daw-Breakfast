@@ -10,7 +10,6 @@ public class UsuarioMapper {
         usuarioDTO.setId(usuario.getId());
         usuarioDTO.setUserName(usuario.getUserName());
         usuarioDTO.setEmail(usuario.getEmail());
-        usuarioDTO.setReviews(usuario.getReviews());
         return usuarioDTO;
     }
 
