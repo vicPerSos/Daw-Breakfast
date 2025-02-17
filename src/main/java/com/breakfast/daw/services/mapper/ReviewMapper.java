@@ -12,9 +12,8 @@ public class ReviewMapper {
         reviewDTO.setPuntuacion(review.getPuntuacion());
         reviewDTO.setComentario(review.getComentario());
         reviewDTO.setDesayuno(review.getDesayuno());
-        reviewDTO.setUsuario(review.getUsuario());
+        reviewDTO.setUsuario(UsuarioMapper.toDTO(review.getUsuario()));
 
         return reviewDTO;
     }
-
 }

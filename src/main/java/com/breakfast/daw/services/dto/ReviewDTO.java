@@ -3,7 +3,6 @@ package com.breakfast.daw.services.dto;
 import java.sql.Date;
 
 import com.breakfast.daw.persintence.entities.Desayuno;
-import com.breakfast.daw.persintence.entities.Usuario;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,6 @@ public class ReviewDTO {
 
     private Desayuno desayuno;
 
-    private Usuario usuario;
+    private UsuarioDTO usuario;
 
 }
