@@ -71,23 +71,38 @@ public class ReviewController {
         return ResponseEntity.ok(ReviewMapper.toDTO(reviewService.updateReview(id, review)));
     }
 
-   /*  @DeleteMapping("/{id}")
-    public boolean deleteReview(@PathVariable int id) {
-        return ResponseEntity.ok(this.reviewService.deleteReview(id));
-    }*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReviewDTO> deleteReview(@PathVariable int id) {
+        return ResponseEntity.ok(ReviewMapper.toDTO(this.reviewService.deleteReview(id)));
+    }
 
     @GetMapping("/ordenadas/fecha/asc")
-    public List<Review> getReviewsOrderedByDateAsc() {
-        return reviewService.getReviewsOrderedByDateAsc();
+    public List<ReviewDTO> getReviewsOrderedByDateAsc() {
+        List<Review> reviews = reviewService.getReviewsOrderedByDateAsc();
+        List<ReviewDTO> reviewsDTO = new ArrayList<>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+        return reviewsDTO;
     }
 
     @GetMapping("/ordenadas/fecha/desc")
-    public List<Review> getReviewsOrderedByDateDesc() {
-        return reviewService.getReviewsOrderedByDateDesc();
+    public List<ReviewDTO> getReviewsOrderedByDateDesc() {
+        List<Review> reviews = reviewService.getReviewsOrderedByDateDesc();
+        List<ReviewDTO> reviewsDTO = new ArrayList<>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+        return reviewsDTO;
     }
 
     @GetMapping("/ordenadas/puntuacion")
-    public List<Review> getReviewsOrderedByScore() {
-        return reviewService.getReviewsOrderedByScore();
+    public List<ReviewDTO> getReviewsOrderedByScore() {
+        List<Review> reviews = reviewService.getReviewsOrderedByScore();
+        List<ReviewDTO> reviewsDTO = new ArrayList<>();
+        for (Review review : reviews) {
+            reviewsDTO.add(ReviewMapper.toDTO(review));
+        }
+        return reviewsDTO;
     }
 }

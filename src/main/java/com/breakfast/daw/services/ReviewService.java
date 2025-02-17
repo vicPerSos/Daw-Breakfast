@@ -41,7 +41,7 @@ public class ReviewService {
 
     @Transactional
     public Review createReview(Review review) {
-        if(review.getPuntuacion()>5||review.getPuntuacion()<1){
+        if (review.getPuntuacion() > 5 || review.getPuntuacion() < 1) {
             throw new RuntimeException("La puntuación debe estar entre 1 y 5");
         }
         Review savedReview = reviewRepository.save(review);
@@ -61,14 +61,14 @@ public class ReviewService {
     }
 
     @Transactional
-    public boolean deleteReview(int id) {
-       boolean result = false;
-       if(this.reviewRepository.existsById(id)){
-        this.reviewRepository.deleteById(id);
-        result = true;
-       }
+    public Review deleteReview(int id) {
+        if (this.reviewRepository.existsById(id)) {
+            Review review = reviewRepository.findById(id).get();
+            this.reviewRepository.deleteById(id);
+            return review;
+        }
 
-       return result;
+        return null;
 
     }
 
