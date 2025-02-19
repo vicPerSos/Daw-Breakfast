@@ -46,6 +46,13 @@ public class ReviewService {
         }
         Review savedReview = reviewRepository.save(review);
         actualizarPuntuacionDesayuno(review.getDesayuno());
+        
+        Desayuno desayuno = this.desayunoRepository.findById(review.getDesayuno().getId()).get();
+        Usuario usuario = this.usuarioRepository.findById(review.getUsuario().getId()).get();
+
+        savedReview.setDesayuno(desayuno);
+        savedReview.setUsuario(usuario);
+
         return savedReview;
     }
 

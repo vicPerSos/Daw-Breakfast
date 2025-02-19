@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.breakfast.daw.persintence.entities.Desayuno;
 import com.breakfast.daw.services.DesayunoService;
 import com.breakfast.daw.services.EstablecimientoService;
+import com.breakfast.daw.services.dto.ImagenDTO;
 
 @RestController
 @RequestMapping("/desayunos")
@@ -93,8 +94,8 @@ public class DesayunoController {
         return ResponseEntity.ok(this.desayunoService.getDesayunosByEstablecimetosOrderByPrecioAsc(id));
     }
 
-    @PutMapping("/imagen/{id}/{imagen}")
-    public ResponseEntity<Desayuno> updateImagenDesayuno(@PathVariable int id, @PathVariable String imagen) {
+    @PutMapping("/imagen/{id}")
+    public ResponseEntity<Desayuno> updateImagenDesayuno(@PathVariable int id, @RequestBody ImagenDTO imagen) {
         if (!this.desayunoService.desayunoIsPresent(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -102,7 +103,7 @@ public class DesayunoController {
         if (desayuno.getImagen().equals(imagen)) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(this.desayunoService.cambiarImagen(desayuno, imagen));
+        return ResponseEntity.ok(this.desayunoService.cambiarImagen(desayuno, imagen.getImagen()));
     }
 
 }

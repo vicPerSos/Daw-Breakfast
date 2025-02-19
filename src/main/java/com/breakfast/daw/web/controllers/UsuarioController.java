@@ -17,14 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.breakfast.daw.persintence.entities.Usuario;
 import com.breakfast.daw.services.UsuarioService;
+import com.breakfast.daw.services.dto.PasswordDTO;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
     @Autowired
     private UsuarioService usuarioService;
-    
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsuarios() {
         return ResponseEntity.ok(usuarioService.getAllUsuarios());
@@ -64,16 +65,17 @@ public class UsuarioController {
     }
 
     @PutMapping("/changepassword/{id}")
-    public ResponseEntity<Usuario> changePassword(@PathVariable int id, @RequestParam String password) {
-        Usuario usuario = this.usuarioService.getUsuarioById(id).get();
-        String oldPassword = usuario.getPassword();
-        if (password.equals(oldPassword)) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Usuario> changePassword(@PathVariable int id, @RequestBody PasswordDTO password) {
         if (!this.usuarioService.usuarioIsPresent(id)) {
             return ResponseEntity.notFound().build();
         }
-        usuario.setPassword(password);
+        Usuario usuario = this.usuarioService.getUsuarioById(id).get();
+        String oldPassword = usuario.getPassword();
+        if (!oldPassword.equals(password.getVieja())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        usuario.setPassword(password.getNueva());
         return ResponseEntity.ok(usuarioService.updateUsuario(usuario));
 
     }

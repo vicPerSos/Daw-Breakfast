@@ -23,14 +23,18 @@ public class EstablecimientoService {
     }
 
     public Establecimiento createEstablecimiento(Establecimiento establecimiento) {
+        establecimiento.setPuntuacion(0.0);
         return this.establecimientoRepository.save(establecimiento);
     }
     
     public Establecimiento updateEstablecimiento(Establecimiento establecimiento) {
+        Establecimiento establecimientoAntiguo = this.establecimientoRepository.findById(establecimiento.getId()).get();
+         establecimiento.setPuntuacion(establecimientoAntiguo.getPuntuacion());
         return this.establecimientoRepository.save(establecimiento);
     }
 
 	public boolean establecimientoIsPresent(int id) {
+
 		return this.establecimientoRepository.existsById(id);	
 		}
 	
